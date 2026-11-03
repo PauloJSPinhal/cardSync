@@ -1,0 +1,10 @@
+Nota importante (login Google no Linux)
+No desktop Linux, o login usa OAuth via navegador. Para funcionar, é necessário substituir o placeholder em lib/services/auth_service.dart:
+
+final clientId = auth_io.ClientId('SEU_CLIENT_ID_DESKTOP.apps.googleusercontent.com', null);
+por um Client ID OAuth "Desktop app" criado na Google Cloud Console. No Android, o google_sign_in funciona com a configuração padrão do projeto.
+
+Comandos úteis
+flutter run -d linux          # executar
+flutter build linux            # binário Linux
+flutter build apk              # Android
