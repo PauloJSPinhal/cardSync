@@ -1,0 +1,3 @@
+[console_scripts]
+cardsync = cardsync.cli.__main__:main
+cardsync-gui = cardsync.gui.main:main

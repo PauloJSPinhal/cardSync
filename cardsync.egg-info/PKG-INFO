@@ -1,0 +1,60 @@
+Metadata-Version: 2.4
+Name: cardsync
+Version: 0.1.0
+Summary: Gestor de arquivo e partilha fotográfica no Google Drive
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: Pillow>=10.0
+Requires-Dist: exifread>=3.0
+Requires-Dist: requests>=2.30
+Requires-Dist: qrcode>=7.4
+Requires-Dist: google-api-python-client>=2.100
+Requires-Dist: google-auth>=2.20
+Requires-Dist: google-auth-oauthlib>=1.0
+
+# cardSync — Gestor de Arquivo e Partilha Fotográfica
+
+Aplicação desktop (Python + GTK3) para ingestão, triagem, arquivo e partilha de reportagens fotográficas no Google Drive, conforme `Especificacoes_tecnicas.md`.
+
+## Funcionalidades implementadas (v0.1)
+
+- Nomenclatura padronizada de pastas: `yyyymmdd_evento_local`
+- Apresentação visual: `DD/MM/AAAA — Evento, Local`
+- Hierarquia interna: `01_RAW`, `02_JPG_Original`, `03_Tratadas`, `04_Docs`
+- Triagem por extensão (RAW: cr2/cr3/dng; JPG: jpg/jpeg)
+- Separação automática por data de captura (EXIF `DateTimeOriginal`)
+- Deduplicação por hash MD5 («Atualizar Coleção»)
+- Manifesto JSON em `04_Docs/manifest.json`
+- Congelar coleção (status `frozen`)
+- Partilha restrita a `03_Tratadas` (permissões `reader`)
+- Código QR, WhatsApp, e-mail HTML com miniaturas
+- Backend local (filesystem) e Google Drive (API v3, OAuth2)
+- GUI GTK3 e CLI
+
+## Instalação
+
+```bash
+sudo apt install python3 python3-gi gir1.2-gtk-3.0 python3-pil
+pip install --break-system-packages -r requirements.txt  # se existir
+pip install --break-system-packages -e .
+```
+
+Dependências Python: ver `pyproject.toml`.
+
+## Executar
+
+```bash
+cardsync-gui        # interface gráfica
+cardsync status     # CLI
+python -m cardsync  # CLI
+```
+
+## Testes
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+## Configuração
+
+`~/.config/cardsync/config.json` — backend (`local` ou `gdrive`), pasta base local, caminho para client secrets.
